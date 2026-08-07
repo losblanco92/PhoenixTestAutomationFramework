@@ -1,10 +1,10 @@
 package com.api.pojo;
 
-public class UserCredentails {
+public class UserCredentials {
 	
 	private String username;
 	private String password;
-	public UserCredentails(String username, String password) {
+	public UserCredentials(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;

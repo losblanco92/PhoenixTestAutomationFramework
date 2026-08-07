@@ -6,7 +6,9 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.lessThan;
 import org.testng.annotations.Test;
-import com.api.pojo.UserCredentails;
+
+import com.api.pojo.UserCredentials;
+
 import io.restassured.http.ContentType;
 
 public class LoginAPITest {
@@ -14,7 +16,7 @@ public class LoginAPITest {
 	@Test
 	public void loginApiTest () {
 		
-      UserCredentails userCredentails = new UserCredentails("iamfd", "password");
+		UserCredentials userCredentails = new UserCredentials("iamfd", "password");
 		
 		given().baseUri(getProperty("BASE_URI"))
 		.and().contentType(ContentType.JSON)

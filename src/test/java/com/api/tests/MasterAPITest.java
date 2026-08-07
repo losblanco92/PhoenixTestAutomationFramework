@@ -1,15 +1,13 @@
 package com.api.tests;
 
 import static com.api.constants.Role.*;
-import static com.api.utils.AuthTokenProvider.*;
-import static com.api.utils.ConfigManager.*;
-
+import static com.api.utils.AuthTokenProvider.getToken;
+import static com.api.utils.ConfigManager.getProperty;
+import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 import org.testng.annotations.Test;
 
-import static io.restassured.RestAssured.*;
-import io.restassured.http.ContentType;
 import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class MasterAPITest {
