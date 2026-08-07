@@ -1,7 +1,6 @@
 package com.api.utils;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -9,7 +8,7 @@ import java.util.Properties;
 public class ConfigManager {
 
 	private static Properties properties = new Properties();
-	private static String path = "config" + File.separator + "config.properties";
+	private static String path;
 	private static String env;
 
 	private ConfigManager() {
