@@ -5,7 +5,7 @@ import com.api.constants.Role;
 import com.api.pojo.UserCredentials;
 
 import static io.restassured.RestAssured.*;
-import io.restassured.http.ContentType;
+import static io.restassured.http.ContentType.*;
 
 public class AuthTokenProvider {
 
@@ -18,9 +18,15 @@ public class AuthTokenProvider {
 	        case QC  -> new UserCredentials("iamqc", "password");
 	    };
 
-		String token = given().baseUri(ConfigManager.getProperty("BASE_URI")).contentType(ContentType.JSON)
-				.body(userCredentials).when().post("login").then().log().ifValidationFails().statusCode(200).extract()
-				.body().path("data.token");
+		String token = given()
+				.baseUri(ConfigManager.getProperty("BASE_URI"))
+				.contentType(JSON)
+				.body(userCredentials)
+				.when().post("login")
+				.then().log().ifValidationFails()
+				.statusCode(200)
+				.extract()
+				.body().jsonPath().getString("data.token");
 
 		return token;
 
