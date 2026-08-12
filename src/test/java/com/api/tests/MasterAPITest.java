@@ -1,13 +1,10 @@
 package com.api.tests;
 
 import static com.api.constants.Role.*;
-import static com.api.utils.ConfigManager.getProperty;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 import org.testng.annotations.Test;
-
-import com.api.utils.SpecUtils;
 
 import static com.api.utils.SpecUtils.*;
 
@@ -16,7 +13,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.*;
 public class MasterAPITest {
 	
 	
-	@Test
+	@Test(description = "Verify Master API is showing correct response",groups = {"api", "regression", "smoke"})
 	public void masterAPITest () {
 		
 		
@@ -39,7 +36,7 @@ public class MasterAPITest {
 		}
 	
 	
-	@Test
+	@Test(description = "Verify Master API is giving correct status code for invalid token",groups = {"api","negative","regression", "smoke"})
 	public void invalidTokenMasterAPI () {
 		
 		given().spec(requestSpec())

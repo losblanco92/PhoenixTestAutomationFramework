@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.constants.Models;
@@ -28,20 +29,28 @@ import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import static io.restassured.RestAssured.*;
 
 public class CreateJobApiTest {
+	private CreateJobPayload customerjobpayload;
 	
-	@Test
-	public void createJobAPITest () {
+	@BeforeMethod(description = "Creates payload for Create Job API")
+	public void setUp  ()
+	
+	{
 		
-		
-		Customer customer = new Customer("Neer", "Joshi", "9265432120", "", "abc@xyz.com", "");
+          Customer customer = new Customer("Neer", "Joshi", "9265432120", "", "abc@xyz.com", "");
 		
 		CustomerAddress customerAddress = new CustomerAddress("123", "Galaxy", "Khao Gali", "Opposite RBI", "Navi Mumbai", "122022", "India", "Haryana");
-		CustomerProduct customerProduct = new CustomerProduct(timeWithDaysAgo(10), "10668152232432", "10668152232432", "10668152232432", timeWithDaysAgo(10), Products.NEXUS_2.getCode(), Models.NEXUS_2_BLUE.getCode());
+		CustomerProduct customerProduct = new CustomerProduct(timeWithDaysAgo(10), "10968152232432", "10968152232432", "10968152232432", timeWithDaysAgo(10), Products.NEXUS_2.getCode(), Models.NEXUS_2_BLUE.getCode());
 		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battray Issue");
 		List<Problems> problemsList = new ArrayList<Problems>();
 		problemsList.add(problems);
 		
-		CreateJobPayload customerjobpayload = new CreateJobPayload(Service_Location.SERVICE_CENTRE_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemsList);
+		customerjobpayload = new CreateJobPayload(Service_Location.SERVICE_CENTRE_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemsList);
+		
+		
+	}
+	
+	@Test(description = "Verify Create Job API is able to create In-warranty job",groups = {"api", "regression", "smoke"})
+	public void createJobAPITest () {
 		
 		
 		given().spec(SpecUtils.requestSpecWithAuth(Role.FD, customerjobpayload)).when()

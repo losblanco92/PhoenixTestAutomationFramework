@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class UserDetailsApiTest {
 	
-	@Test
+	@Test(description = "Verify User Details API is shwoing correct response", groups = {"api", "regression", "smoke"})
 	public void userDetailsApi () throws IOException {
 		
 		given().spec(requestSpecWithAuth(FD))

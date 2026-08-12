@@ -5,7 +5,7 @@ import static io.restassured.RestAssured.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import static org.hamcrest.Matchers.*;
 
-
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.request.model.UserCredentials;
@@ -13,10 +13,17 @@ import com.api.request.model.UserCredentials;
 
 public class LoginAPITest {
 
-	@Test
-	public void loginApiTest () {
+ private	 UserCredentials userCredentails;
+ 
+     @BeforeMethod(description = "Create the payload for login API")
+	public void setUp() {
 		
-		UserCredentials userCredentails = new UserCredentials("iamfd", "password");
+	 userCredentails = new UserCredentials("iamfd", "password");
+		
+	}
+	
+	@Test(description = "Verify if login API is working for FD user", groups = {"api", "regression", "smoke"})
+	public void loginApiTest () {
 		
 		given().spec(requestSpec(userCredentails))
 		.when()
