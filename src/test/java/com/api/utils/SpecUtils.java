@@ -12,7 +12,7 @@ import static io.restassured.http.ContentType.*;
 import static org.hamcrest.Matchers.*;
 
 import com.api.constants.Role;
-import com.api.pojo.UserCredentials;
+import com.api.request.model.UserCredentials;
 
 import static com.api.utils.ConfigManager.*;
 
@@ -64,6 +64,22 @@ public static RequestSpecification requestSpecWithAuth(Role role) {
 		    return requestSpecification;
 			
 		}
+
+public static RequestSpecification requestSpecWithAuth(Role role, Object payload) {
+	
+	RequestSpecification requestSpecification = new RequestSpecBuilder()
+			                     .setBaseUri(getProperty("BASE_URI"))
+		                         .setContentType(JSON)
+		                         .setAccept(JSON).addHeader("Authorization", AuthTokenProvider.getToken(role))
+		                         .setBody(payload)
+		                         .log(METHOD)
+		                         .log(BODY)
+		                         .log(HEADERS)
+		                         .log(URI).build();
+	
+	    return requestSpecification;
+		
+	}
 
 	
 	
