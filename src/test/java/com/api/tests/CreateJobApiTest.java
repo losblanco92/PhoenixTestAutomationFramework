@@ -35,7 +35,6 @@ public class CreateJobApiTest {
 	public void setUp  ()
 	
 	{
-		
           Customer customer = new Customer("Neer", "Joshi", "9265432120", "", "abc@xyz.com", "");
 		
 		CustomerAddress customerAddress = new CustomerAddress("123", "Galaxy", "Khao Gali", "Opposite RBI", "Navi Mumbai", "122022", "India", "Haryana");
