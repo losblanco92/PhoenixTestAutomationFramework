@@ -1,14 +1,19 @@
 package com.api.tests;
 
-import static com.api.constants.Role.*;
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
+import static com.api.constants.Role.FD;
+import static com.api.utils.SpecUtils.requestSpec;
+import static com.api.utils.SpecUtils.requestSpecWithAuth;
+import static com.api.utils.SpecUtils.responseSpec_OK;
+import static com.api.utils.SpecUtils.responseSpec_TXT;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.Matchers.notNullValue;
 
 import org.testng.annotations.Test;
-
-import static com.api.utils.SpecUtils.*;
-
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
 public class MasterAPITest {
 	

@@ -1,6 +1,10 @@
 package com.api.tests;
 
-import static org.hamcrest.Matchers.*;
+import static com.api.utils.DateTimeUtils.timeWithDaysAgo;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.startsWith;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +25,7 @@ import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
-import static com.api.utils.DateTimeUtils.*;
 import com.api.utils.SpecUtils;
-
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
-
-import static io.restassured.RestAssured.*;
 
 public class CreateJobApiTest {
 	private CreateJobPayload customerjobpayload;

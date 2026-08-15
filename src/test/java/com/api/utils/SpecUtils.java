@@ -1,20 +1,20 @@
 package com.api.utils;
 
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.filter.log.LogDetail;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
-
-import static io.restassured.filter.log.LogDetail.*;
-import static io.restassured.http.ContentType.*;
-
-import static org.hamcrest.Matchers.*;
+import static com.api.utils.ConfigManager.getProperty;
+import static io.restassured.filter.log.LogDetail.ALL;
+import static io.restassured.filter.log.LogDetail.BODY;
+import static io.restassured.filter.log.LogDetail.HEADERS;
+import static io.restassured.filter.log.LogDetail.METHOD;
+import static io.restassured.filter.log.LogDetail.URI;
+import static io.restassured.http.ContentType.JSON;
+import static org.hamcrest.Matchers.lessThan;
 
 import com.api.constants.Role;
-import com.api.request.model.UserCredentials;
 
-import static com.api.utils.ConfigManager.*;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 
 public class SpecUtils {
 	
