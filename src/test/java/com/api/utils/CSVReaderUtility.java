@@ -13,7 +13,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 public class CSVReaderUtility {
 	
 	
-	public static Iterator<UserBean> loadCSV (String pathOfCSVFile) {
+	public static <T> Iterator<T> loadCSV (String pathOfCSVFile, Class<T> bean) {
 		
 		
 		
@@ -21,13 +21,13 @@ public class CSVReaderUtility {
 		InputStreamReader reader = new InputStreamReader(stream);
 		CSVReader csvReader = new CSVReader(reader);
 		
-		CsvToBean<UserBean> csvToBean = new CsvToBeanBuilder(csvReader)
-				                            .withType(UserBean.class)
+		CsvToBean<T> csvToBean = new CsvToBeanBuilder(csvReader)
+				                            .withType(bean)
 				                            .withIgnoreEmptyLine(true)
                                              .build();	
 		
-		List<UserBean> userList = csvToBean.parse();
-		 return userList.iterator();
+		List<T> list = csvToBean.parse();
+		 return list.iterator();
 	}
 
 }
