@@ -1,10 +1,10 @@
 package com.api.utils;
 
+import static io.restassured.RestAssured.given;
+import static io.restassured.http.ContentType.JSON;
+
 import com.api.constants.Role;
 import com.api.request.model.UserCredentials;
-
-import static io.restassured.RestAssured.*;
-import static io.restassured.http.ContentType.*;
 
 public class AuthTokenProvider {
 

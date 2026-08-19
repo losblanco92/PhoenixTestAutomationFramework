@@ -20,13 +20,13 @@ public class ConfigManager {
 		env = System.getProperty("env", "qa");
 
 		switch (env.toLowerCase().trim()) {
-		case "qa" -> path = "config" + File.separator + "config.qa.properties";
+		case "qa" -> path = "config/config.qa.properties";
 
-		case "uat" -> path = "config" + File.separator + "config.uat.properties";
+		case "uat" -> path = "config/config.uat.properties";
 
-		case "dev" -> path = "config" + File.separator + "config.dev.properties";
+		case "dev" -> path = "config/config.dev.properties";
 
-		default -> path = "config" + File.separator + "config.qa.properties";
+		default -> path = "config/config.qa.properties";
 
 		}
 
