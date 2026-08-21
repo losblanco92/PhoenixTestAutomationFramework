@@ -18,6 +18,8 @@ public class ConfigManager {
 	static {
 
 		env = System.getProperty("env", "qa");
+		
+		System.out.println("Running job in "+env);
 
 		switch (env.toLowerCase().trim()) {
 		case "qa" -> path = "config/config.qa.properties";
