@@ -27,6 +27,8 @@ public class FakerDataGenerator {
 	private static final Faker FAKER = new Faker(new Locale("en-IND"));
 	
 	private static final Random RANDOM = new Random();
+	
+	private static int [] validProblemId = {1,2,3,4,5,6,7,8,9,10,11,12,15,16,17,19,20,22,24,26,27,28,29};
 
 	private FakerDataGenerator() {
 
@@ -64,9 +66,9 @@ public class FakerDataGenerator {
 		String FAKERemark = FAKER.pokemon().name();
 
 		
-		int problemId = RANDOM.nextInt(27) + 1;
+		int randomIndex = RANDOM.nextInt(validProblemId.length);
 
-		Problems problems = new Problems(problemId, FAKERemark);
+		Problems problems = new Problems(validProblemId[randomIndex], FAKERemark);
 
 		List<Problems> problemList = new ArrayList<Problems>();
 		problemList.add(problems);
