@@ -14,7 +14,7 @@ import com.api.utils.SpecUtils;
 public class CreateJobDataDrivenApiTest {
 
 	
-	@Test(description = "Verify Create Job API is able to create In-warranty job",groups = {"api", "regression", "datadriven"},
+	@Test(description = "Verify Create Job API is able to create In-warranty job",groups = {"api", "regression", "datadriven","csv"},
 			
 			dataProviderClass = com.dataproviders.DataProviderUtils.class,
 			dataProvider = "CreateJobAPIDataProvider"
