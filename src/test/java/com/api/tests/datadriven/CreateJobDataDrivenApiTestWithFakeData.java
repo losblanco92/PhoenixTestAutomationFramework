@@ -11,17 +11,13 @@ import com.api.constants.Role;
 import com.api.request.model.CreateJobPayload;
 import com.api.utils.SpecUtils;
 
-public class CreateJobDataDrivenApiTest {
+public class CreateJobDataDrivenApiTestWithFakeData {
 
 	
-	@Test(description = "Verify Create Job API is able to create In-warranty job",groups = {"api", "regression", "datadriven","csv"},
+	@Test(description = "Verify Create Job API is able to create In-warranty job",groups = {"api", "regression", "datadriven", "faker"},
 			
 			dataProviderClass = com.dataproviders.DataProviderUtils.class,
-			dataProvider = "CreateJobAPIDataProvider"
-			
-			
-			
-			)
+			dataProvider = "CreateJobAPIFakerDataProvider")
 	public void createJobAPITest (CreateJobPayload createJobPayload) {
 		
 		
