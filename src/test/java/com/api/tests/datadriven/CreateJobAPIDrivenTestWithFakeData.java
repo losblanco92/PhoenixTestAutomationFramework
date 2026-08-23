@@ -11,7 +11,7 @@ import com.api.constants.Role;
 import com.api.request.model.CreateJobPayload;
 import com.api.utils.SpecUtils;
 
-public class CreateJobDataDrivenApiTestWithFakeData {
+public class CreateJobAPIDrivenTestWithFakeData {
 
 	
 	@Test(description = "Verify Create Job API is able to create In-warranty job",groups = {"api", "regression", "datadriven", "faker"},
