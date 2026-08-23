@@ -7,9 +7,11 @@ import java.util.List;
 import org.testng.annotations.DataProvider;
 
 import com.api.request.model.CreateJobPayload;
+import com.api.request.model.UserCredentials;
 import com.api.utils.CSVReaderUtility;
 import com.api.utils.CreateJobBeanMapper;
 import com.api.utils.FakerDataGenerator;
+import com.api.utils.JsonReaderUtility;
 import com.dataproviders.api.bean.CreateJobBean;
 import com.dataproviders.api.bean.UserBean;
 
@@ -34,27 +36,30 @@ public class DataProviderUtils {
 		CreateJobPayload tempPayload;
 
 		while (createJobBeanIterator.hasNext()) {
-			tempBean= createJobBeanIterator.next();
+			tempBean = createJobBeanIterator.next();
 
 			tempPayload = CreateJobBeanMapper.mapper(tempBean);
 			payLoadList.add(tempPayload);
 		}
-		
+
 		return payLoadList.iterator();
 
 	}
-	
+
 	@DataProvider(name = "CreateJobAPIFakerDataProvider")
-	public static Iterator<CreateJobPayload> createJobAPIFakerDataProvider()
-	{
-       String fakerCount = System.getProperty("fakerCount", "5");
-       int fakerCountInt = Integer.parseInt(fakerCount);
-       
-       return FakerDataGenerator.generateFakeCreateJobData(fakerCountInt);
+	public static Iterator<CreateJobPayload> createJobAPIFakerDataProvider() {
+		String fakerCount = System.getProperty("fakerCount", "5");
+		int fakerCountInt = Integer.parseInt(fakerCount);
+
+		return FakerDataGenerator.generateFakeCreateJobData(fakerCountInt);
 
 	}
-	
-	
-	
-	
+
+	@DataProvider(name = "LoginAPIJsonDataProvider", parallel = true)
+	public Iterator<UserCredentials> loginApiJsonDataProvider() {
+
+		return JsonReaderUtility.loadJson("testData/loginAPITest.json", UserCredentials[].class);
+
+	}
+
 }
