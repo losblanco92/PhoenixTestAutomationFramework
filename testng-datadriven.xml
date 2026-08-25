@@ -11,7 +11,10 @@
 				name="com.api.tests.datadriven.LoginAPIDataDrivenTestWithJson" />
 				<class
 				name="com.api.tests.datadriven.CreateJobAPIDataDrivenTestWithJson" />
-
+<class
+				name="com.api.tests.datadriven.LoginAPIDataDrivenUsingExcel" />
+				<class
+				name="com.api.tests.datadriven.CreateJobDataDrivenApiTestWithExcel" />
 		</classes>
 	</test>
 
