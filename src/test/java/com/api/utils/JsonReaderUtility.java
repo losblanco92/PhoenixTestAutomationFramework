@@ -5,11 +5,13 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
-import com.api.request.model.UserCredentials;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonReaderUtility {
+
+	public JsonReaderUtility() {
+
+	}
 
 	public static <T> Iterator<T> loadJson(String fileName, Class<T[]> clazz) {
 
