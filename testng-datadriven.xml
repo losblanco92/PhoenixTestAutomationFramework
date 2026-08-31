@@ -15,6 +15,9 @@
 				name="com.api.tests.datadriven.LoginAPIDataDrivenUsingExcel" />
 			<class
 				name="com.api.tests.datadriven.CreateJobDataDrivenApiTestWithExcel" />
+		<class
+				name="com.api.tests.datadriven.CreateJobDataDrivenApiTestWithDB" />
+		
 		</classes>
 	</test>
 
