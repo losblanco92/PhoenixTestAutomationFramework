@@ -1,4 +1,4 @@
-package com.database.model;
+package com.database.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.database.DataBaseManager;
+import com.database.model.CustomerDBModel;
 
 public class CustomerDao {
 

@@ -1,4 +1,4 @@
-package com.database.model;
+package com.database.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,8 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.database.DataBaseManager;
+import com.database.model.CustomerProductDBModel;
 
 public class CustomerProductDao {
+	
+	private CustomerProductDao () {
+		
+	}
 
 	private final static String CUSTOMER_PRODUCT_QUERY = """
 			SELECT * FROM tr_customer_product where id=?
