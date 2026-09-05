@@ -27,6 +27,7 @@ import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
 import com.api.response.model.CreateJobAPIResponse;
+import com.api.utils.AssertionUtility;
 import com.api.utils.SpecUtils;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
@@ -44,7 +45,8 @@ public class CreateJobApiWithDBValidationUsingDeserialization {
 	private Customer customer;
 	private CustomerAddress customerAddress;
 	private CustomerProduct customerProduct;
-	private Problems problems;
+	 
+	private List<Problems> problemsList;
 
 	@BeforeMethod(description = "Creates payload for Create Job API")
 	public void setUp()
@@ -54,10 +56,10 @@ public class CreateJobApiWithDBValidationUsingDeserialization {
 
 		customerAddress = new CustomerAddress("123", "Galaxy", "Khao Gali", "Opposite RBI", "Navi Mumbai", "122022",
 				"India", "Haryana");
-		customerProduct = new CustomerProduct(timeWithDaysAgo(10), "19389152231418", "19389152231418", "19389152233418",
+		customerProduct = new CustomerProduct(timeWithDaysAgo(10), "19389159131418", "19389159131418", "19389159131418",
 				timeWithDaysAgo(10), Products.NEXUS_2.getCode(), Models.NEXUS_2_BLUE.getCode());
-		problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battery Issue");
-		List<Problems> problemsList = new ArrayList<Problems>();
+		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battery Issue");
+	   problemsList = new ArrayList<Problems>();
 		problemsList.add(problems);
 
 		createJobPayload = new CreateJobPayload(Service_Location.SERVICE_CENTRE_A.getCode(),
@@ -105,10 +107,9 @@ public class CreateJobApiWithDBValidationUsingDeserialization {
 		Assert.assertEquals(jobHeadDataFromDB.getMst_platform_id(), createJobPayload.mst_platform_id());
 		Assert.assertEquals(jobHeadDataFromDB.getMst_warrenty_status_id(), createJobPayload.mst_warrenty_status_id());
 
-		MapJobProblemModel problemDataFromDB = MapJobProblemDao.getProblemInfo(response.getData().getId());
+		List<MapJobProblemModel> problemDataFromDB = MapJobProblemDao.getProblemInfo(response.getData().getId());
 
-		Assert.assertEquals(problemDataFromDB.getMst_problem_id(), problems.id());
-		Assert.assertEquals(problemDataFromDB.getRemark(), problems.remark());
+		AssertionUtility.assertProblemDetails(problemDataFromDB, problemsList);
 		
 		CustomerProductDBModel customerProductDBmodel = CustomerProductDao
 				.getCustomerProductInfo(response.getData().getTr_customer_product_id());
