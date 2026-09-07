@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.database.DataBaseManager;
 import com.database.model.MapJobProblemModel;
@@ -18,8 +20,10 @@ public class MapJobProblemDao {
 			Select * FROM map_job_problem where tr_job_head_id= ?
 			""";
 
-	public static MapJobProblemModel getProblemInfo(int tr_job_head_id) {
+	public static List<MapJobProblemModel> getProblemInfo(int tr_job_head_id) {
 		MapJobProblemModel mapJobProblemModel = null;
+		List<MapJobProblemModel> problemList = new ArrayList<MapJobProblemModel>();
+		
 		try {
 
 			Connection conn = DataBaseManager.getConnection();
@@ -36,6 +40,8 @@ public class MapJobProblemDao {
 
 						new MapJobProblemModel(resultSet.getInt("id"), resultSet.getInt("tr_job_head_id"),
 								resultSet.getInt("mst_problem_id"), resultSet.getString("remark"));
+				
+				problemList.add(mapJobProblemModel);
 
 			}
 
@@ -46,7 +52,7 @@ public class MapJobProblemDao {
 			System.err.println(e.getMessage());
 		}
 
-		return mapJobProblemModel;
+		return problemList;
 
 	}
 
