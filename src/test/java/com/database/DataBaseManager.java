@@ -4,14 +4,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.api.utils.ConfigManager;
+import com.api.utils.EnvUtility;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 public class DataBaseManager {
 
-	private static final String DB_URL = "jdbc:mysql://64.227.160.186 :3306/SR_DEV";
-	private static final String DB_USER_NAME = "srdev_ro_automation";
-	private static final String DB_PASSWORD = "Srdev@123";
+	private static final String DB_URL = EnvUtility.getValue("DB_URL");
+	private static final String DB_USER_NAME =EnvUtility.getValue("DB_USER_NAME");
+	private static final String DB_PASSWORD = EnvUtility.getValue("DB_PASSWORD");
 	private static final int MAXIMUM_POOL_SIZE = Integer.parseInt(ConfigManager.getProperty("MAXIMUM_POOL_SIZE"));
 	private static final int MINIMUM_IDLE_CONNECTIONS = Integer
 			.parseInt(ConfigManager.getProperty("MINIMUM_IDLE_CONNECTIONS"));
