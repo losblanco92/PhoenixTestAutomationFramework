@@ -15,11 +15,11 @@ public class EnvUtility {
 
 	}
 
-	public static String loadVariable(String var)
+	public static String getValue(String varName)
 
 	{
 
-		return dotenv.get(var);
+		return dotenv.get(varName);
 	}
 
 }
