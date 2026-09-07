@@ -57,9 +57,7 @@ public class CreateJobApiWithDBValidationUsingDeserialization {
 		customerAddress = new CustomerAddress("123", "Galaxy", "Khao Gali", "Opposite RBI", "Navi Mumbai", "122022",
 				"India", "Haryana");
 
-		customerProduct = new CustomerProduct(timeWithDaysAgo(10), "19389162231418", "19389162231418", "19389162231418",
-		customerProduct = new CustomerProduct(timeWithDaysAgo(10), "19389159131418", "19389159131418", "19389159131418",
-				timeWithDaysAgo(10), Products.NEXUS_2.getCode(), Models.NEXUS_2_BLUE.getCode());
+		customerProduct = new CustomerProduct(timeWithDaysAgo(10), "19389159131418", "19389159131418", "19389159131418",timeWithDaysAgo(10), Products.NEXUS_2.getCode(), Models.NEXUS_2_BLUE.getCode());
 		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battery Issue");
 	   problemsList = new ArrayList<Problems>();
 		problemsList.add(problems);
