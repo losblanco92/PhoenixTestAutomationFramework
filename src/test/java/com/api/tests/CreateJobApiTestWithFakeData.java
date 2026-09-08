@@ -94,7 +94,7 @@ public class CreateJobApiTestWithFakeData {
 		CustomerProductDBModel customerProductDBmodel = CustomerProductDao
 				.getCustomerProductInfo(response.getData().getTr_customer_product_id());
 
-		//Assert.assertEquals(customerProductDBmodel.getDop(),customerProduct.dop());
+		Assert.assertEquals(customerProductDBmodel.getDop(),customerProduct.dop());
 		Assert.assertEquals(customerProductDBmodel.getSerial_number(), customerProduct.serial_number());
 		Assert.assertEquals(customerProductDBmodel.getImei1(), customerProduct.imei1());
 		Assert.assertEquals(customerProductDBmodel.getImei2(), customerProduct.imei2());
