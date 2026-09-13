@@ -11,7 +11,7 @@ public class AuthService {
 
 	private static final String LOGIN_ENDPOINT = "login";
 
-	public Response login(UserCredentials userCredentials) {
+	public Response login(Object userCredentials) {
 
 		Response response = 
 				
