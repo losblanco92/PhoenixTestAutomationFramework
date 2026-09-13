@@ -5,14 +5,43 @@ import java.sql.SQLException;
 
 import com.api.utils.ConfigManager;
 import com.api.utils.EnvUtility;
+import com.api.utils.VaultDBConfig;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 public class DataBaseManager {
+	private static boolean isVaultUp = true;
+	private static final String DB_URL = loadSecret("DB_URL");
+	private static final String DB_USER_NAME = loadSecret("DB_USER_NAME");
+	private static final String DB_PASSWORD = loadSecret("DB_PASSWORD");
 
-	private static final String DB_URL = EnvUtility.getValue("DB_URL");
-	private static final String DB_USER_NAME =EnvUtility.getValue("DB_USER_NAME");
-	private static final String DB_PASSWORD = EnvUtility.getValue("DB_PASSWORD");
+	public static String loadSecret(String key) {
+
+		String value = null;
+
+		if (isVaultUp) {
+			value = VaultDBConfig.getSecret(key);
+
+			if (value == null) {
+
+				System.err.println("VAULT IS DOWN");
+				isVaultUp = false;
+
+			}
+
+			else {
+				System.out.println("READING VALUE FROM VAULT");
+
+				return value;
+			}
+		}
+
+		System.out.println("READING VALUE from ENV FILE");
+		value = EnvUtility.getValue(key);
+		return value;
+
+	}
+
 	private static final int MAXIMUM_POOL_SIZE = Integer.parseInt(ConfigManager.getProperty("MAXIMUM_POOL_SIZE"));
 	private static final int MINIMUM_IDLE_CONNECTIONS = Integer
 			.parseInt(ConfigManager.getProperty("MINIMUM_IDLE_CONNECTIONS"));
@@ -63,13 +92,12 @@ public class DataBaseManager {
 		Connection connection = null;
 		if (hikariDataSource == null) {
 			initializePool();
-}
-      else if (hikariDataSource.isClosed()) {
-    	  throw new SQLException("HIKARI DATASOURCE IS CLOSED");
+		} else if (hikariDataSource.isClosed()) {
+			throw new SQLException("HIKARI DATASOURCE IS CLOSED");
 		}
 
-	connection = hikariDataSource.getConnection();
-     return connection;
+		connection = hikariDataSource.getConnection();
+		return connection;
 
 	}
 
