@@ -10,15 +10,17 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.request.model.UserCredentials;
+import com.api.services.AuthService;
 
 
 public class LoginAPITest {
 
  private	 UserCredentials userCredentails;
- 
+ private AuthService authService;
      @BeforeMethod(description = "Create the payload for login API")
 	public void setUp() {
-		
+	
+    	 authService = new AuthService();
 	 userCredentails = new UserCredentials("iamfd", "password");
 		
 	}
@@ -26,13 +28,11 @@ public class LoginAPITest {
 	@Test(description = "Verify if login API is working for FD user", groups = {"api", "regression", "smoke"})
 	public void loginApiTest () {
 		
-		given().spec(requestSpec(userCredentails))
-		.when()
-		.post("login")
-		.then()
-		.spec(responseSpec_OK())
-		.body("message", equalTo("Success"))
-		.body(matchesJsonSchemaInClasspath("response-schema/LoginApiResponseSchema.json"));
+	  authService.login(userCredentails)
+	.then()
+	.spec(responseSpec_OK())
+	.body("message", equalTo("Success"))
+	.body(matchesJsonSchemaInClasspath("response-schema/LoginApiResponseSchema.json"));
 		
 		
 	}
