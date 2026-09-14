@@ -1,7 +1,7 @@
 package com.api.tests;
 
+import static com.api.constants.Role.FD;
 import static com.api.utils.DateTimeUtils.timeWithDaysAgo;
-import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
@@ -17,7 +17,6 @@ import com.api.constants.OEM;
 import com.api.constants.Platform;
 import com.api.constants.Problem;
 import com.api.constants.Products;
-import com.api.constants.Role;
 import com.api.constants.Service_Location;
 import com.api.constants.Warranty_Status;
 import com.api.request.model.CreateJobPayload;
@@ -25,10 +24,13 @@ import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
+import com.api.services.JobService;
 import com.api.utils.SpecUtils;
 
 public class CreateJobApiTest {
 	private CreateJobPayload customerjobpayload;
+	
+	private JobService jobService;
 	
 	@BeforeMethod(description = "Creates payload for Create Job API")
 	public void setUp  ()
@@ -37,12 +39,14 @@ public class CreateJobApiTest {
           Customer customer = new Customer("Neer", "Joshi", "9265432120", "", "abc@xyz.com", "");
 		
 		CustomerAddress customerAddress = new CustomerAddress("123", "Galaxy", "Khao Gali", "Opposite RBI", "Navi Mumbai", "122022", "India", "Haryana");
-		CustomerProduct customerProduct = new CustomerProduct(timeWithDaysAgo(10), "10968152232432", "10968152232432", "10968152232432", timeWithDaysAgo(10), Products.NEXUS_2.getCode(), Models.NEXUS_2_BLUE.getCode());
+		CustomerProduct customerProduct = new CustomerProduct(timeWithDaysAgo(10), "10968152235432", "10968152235432", "10968152235432",timeWithDaysAgo(10), Products.NEXUS_2.getCode(), Models.NEXUS_2_BLUE.getCode());
 		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battery Issue");
 		List<Problems> problemsList = new ArrayList<Problems>();
 		problemsList.add(problems);
 		
 		customerjobpayload = new CreateJobPayload(Service_Location.SERVICE_CENTRE_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemsList);
+		
+		jobService = new JobService(); 
 		
 		
 	}
@@ -51,8 +55,7 @@ public class CreateJobApiTest {
 	public void createJobAPITest () {
 		
 		
-		given().spec(SpecUtils.requestSpecWithAuth(Role.FD, customerjobpayload)).when()
-		           .post("job/create")
+		jobService.create(FD, customerjobpayload)
 		      .then().spec(SpecUtils.responseSpec_OK())
 		      .body("message", equalTo("Job created successfully. "))
 		      .body("data.mst_service_location_id", equalTo(1))

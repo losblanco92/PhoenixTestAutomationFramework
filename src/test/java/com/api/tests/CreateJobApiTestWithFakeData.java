@@ -1,6 +1,5 @@
 package com.api.tests;
 
-import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
@@ -18,6 +17,7 @@ import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
 import com.api.response.model.CreateJobAPIResponse;
+import com.api.services.JobService;
 import com.api.utils.AssertionUtility;
 import com.api.utils.FakerDataGenerator;
 import com.api.utils.SpecUtils;
@@ -34,19 +34,22 @@ import com.database.model.MapJobProblemModel;
 
 public class CreateJobApiTestWithFakeData {
 	private CreateJobPayload createJobPayload;
-
-	@BeforeMethod(description = "Creates payload for Create Job API")
+    private JobService jobService;
+	
+	
+	@BeforeMethod(description = "Creates payload for Create Job API and instantiating job service")
 	public void setUp() {
 
 		createJobPayload = FakerDataGenerator.generateFakeCreateJobData();
+		
+		jobService = new JobService();
 	}
 
 	@Test(description = "Verify Create Job API is able to create In-warranty job", groups = { "api", "regression",
 			"smoke" })
 	public void createJobAPITest() {
 
-		CreateJobAPIResponse response = given().spec(SpecUtils.requestSpecWithAuth(Role.FD, createJobPayload)).when()
-				.post("job/create").then().spec(SpecUtils.responseSpec_OK())
+		CreateJobAPIResponse response =jobService.create(Role.FD, createJobPayload).then().spec(SpecUtils.responseSpec_OK())
 				.body("message", equalTo("Job created successfully. ")).body("data.mst_service_location_id", equalTo(1))
 				.body("data.job_number", startsWith("JOB_"))
 				.body(matchesJsonSchemaInClasspath("response-schema/CreateJobAPISchema.json")).extract().as(CreateJobAPIResponse.class);
