@@ -1,8 +1,6 @@
 package com.api.tests;
 
-import static com.api.utils.SpecUtils.requestSpec;
 import static com.api.utils.SpecUtils.responseSpec_OK;
-import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -21,7 +19,7 @@ public class LoginAPITest {
 	public void setUp() {
 	
     	 authService = new AuthService();
-	 userCredentails = new UserCredentials("iamfd", "password");
+    	 userCredentails = new UserCredentials("iamfd", "password");
 		
 	}
 	
