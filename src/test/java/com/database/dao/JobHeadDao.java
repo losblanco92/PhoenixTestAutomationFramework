@@ -5,10 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DataBaseManager;
 import com.database.model.JobHeadModel;
 
 public class JobHeadDao {
+	private static final Logger LOGGER = LogManager.getLogger(JobHeadDao.class);
 
 	private final static String JOB_HEAD_QUERY = """
 			SELECT * FROM tr_job_head  where tr_customer_id=?
@@ -22,9 +26,12 @@ public class JobHeadDao {
 	
 	public static JobHeadModel getJobHeadInfo(int tr_customer_id) {
 		JobHeadModel jobHeadModel = null;
+		Connection conn;
+		
 		try {
-			Connection conn = DataBaseManager.getConnection();
-
+			LOGGER.info("GETTING THE CONNECTION FROM DATABASE MANAGER");
+			conn = DataBaseManager.getConnection();
+			LOGGER.info("EXECUTING SQL QUERY");	
 			PreparedStatement preparedStatement = conn.prepareStatement(JOB_HEAD_QUERY);
 			preparedStatement.setInt(1, tr_customer_id);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -40,6 +47,7 @@ public class JobHeadDao {
 		}
 
 		catch (SQLException e) {
+			LOGGER.error("CANNOT CONVERT RESULTSET TO BEAN", e);
 
 			System.err.println(e.getMessage());
 

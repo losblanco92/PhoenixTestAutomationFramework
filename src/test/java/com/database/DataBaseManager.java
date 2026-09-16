@@ -3,6 +3,9 @@ package com.database;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.api.utils.ConfigManager;
 import com.api.utils.EnvUtility;
 import com.api.utils.VaultDBConfig;
@@ -10,6 +13,8 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 public class DataBaseManager {
+	
+	private static final Logger LOGGER = LogManager.getLogger(DataBaseManager.class);
 	private static boolean isVaultUp = true;
 	private static final String DB_URL = loadSecret("DB_URL");
 	private static final String DB_USER_NAME = loadSecret("DB_USER_NAME");
@@ -23,20 +28,18 @@ public class DataBaseManager {
 			value = VaultDBConfig.getSecret(key);
 
 			if (value == null) {
-
-				System.err.println("VAULT IS DOWN");
+           LOGGER.error("VAULT IS DOWN");
+				
 				isVaultUp = false;
 
 			}
 
 			else {
-				System.out.println("READING VALUE FROM VAULT");
-
+				LOGGER.info("Reading the value {} from Vault", key);
 				return value;
 			}
 		}
-
-		System.out.println("READING VALUE from ENV FILE");
+		LOGGER.info("READING VALUE from ENV FILE");
 		value = EnvUtility.getValue(key);
 		return value;
 
@@ -63,6 +66,7 @@ public class DataBaseManager {
 	private static void initializePool() {
 
 		if (hikariDataSource == null) { // double-checked locking pattern.
+			LOGGER.warn("DATABASE CONNECTION NOT PRESENT.. CREATING HIKARI DATASOURCE");
 
 			synchronized (DataBaseManager.class) { // thread safety
 
@@ -80,6 +84,9 @@ public class DataBaseManager {
 					hikariConfig.setPoolName(POOL_NAME);
 
 					hikariDataSource = new HikariDataSource(hikariConfig);
+					
+					LOGGER.info("CREATED HIKARI DATASOURCE");
+
 				}
 
 			}
@@ -91,8 +98,12 @@ public class DataBaseManager {
 	public static Connection getConnection() throws SQLException {
 		Connection connection = null;
 		if (hikariDataSource == null) {
+			
+			LOGGER.info("INITIALIZING THE DATABASE CONNECTION USING HIKARI CP");
 			initializePool();
 		} else if (hikariDataSource.isClosed()) {
+			
+			LOGGER.error("HIKARI DATASOURCE IS CLOSED");
 			throw new SQLException("HIKARI DATASOURCE IS CLOSED");
 		}
 

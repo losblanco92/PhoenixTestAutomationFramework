@@ -6,11 +6,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DataBaseManager;
 import com.dataproviders.api.bean.CreateJobBean;
 
 public class CreateJobPayloadDataDao {
-	
+	private static final Logger LOGGER = LogManager.getLogger(CreateJobPayloadDataDao.class);
 	
 	private CreateJobPayloadDataDao () {
 		
@@ -68,7 +71,11 @@ public class CreateJobPayloadDataDao {
 		List<CreateJobBean> beanList = new ArrayList<CreateJobBean>();
 
 		try {
+			
+			LOGGER.info("GETTING THE CONNECTION FROM DATABASE MANAGER");
 			conn = DataBaseManager.getConnection();
+			LOGGER.info("EXECUTING SQL QUERY");
+			
 			resultSet = conn.createStatement().executeQuery(SQL_QUERY);
 			while (resultSet.next()) {
 
@@ -105,6 +112,7 @@ public class CreateJobPayloadDataDao {
 			}
 		} catch (SQLException e) {
 
+			LOGGER.error("CANNOT CONVERT RESULTSET TO BEAN", e);
 			e.printStackTrace();
 		}
 

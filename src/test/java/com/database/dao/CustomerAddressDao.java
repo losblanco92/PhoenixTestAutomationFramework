@@ -5,10 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DataBaseManager;
 import com.database.model.CustomerAddressDBModel;
 
 public class CustomerAddressDao {
+	private static final Logger LOGGER = LogManager.getLogger(CustomerAddressDao.class);
 
 	private final static String CUSTOMER_ADDRESS_QUERY = """
 			SELECT * FROM tr_customer_address where id =?
@@ -21,9 +25,12 @@ public class CustomerAddressDao {
 
 	public static CustomerAddressDBModel getCustomerAddressInfo(int customerAddressId) {
 		CustomerAddressDBModel customerAddressDBModel = null;
+		Connection conn;
 		
 		try {
-		Connection conn = DataBaseManager.getConnection();
+			LOGGER.info("GETTING THE CONNECTION FROM DATABASE MANAGER");
+			conn = DataBaseManager.getConnection();
+			LOGGER.info("EXECUTING SQL QUERY");
 
 		PreparedStatement preparedStatement = conn.prepareStatement(CUSTOMER_ADDRESS_QUERY);
 
@@ -43,6 +50,7 @@ public class CustomerAddressDao {
 		}
 		
 		catch (SQLException e) {
+			LOGGER.error("CANNOT CONVERT RESULTSET TO BEAN", e);
 			System.err.println(e.getMessage());
 		}
 
