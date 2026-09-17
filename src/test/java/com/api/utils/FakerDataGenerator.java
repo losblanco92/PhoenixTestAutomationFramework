@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.api.constants.Models;
 import com.api.constants.OEM;
 import com.api.constants.Platform;
@@ -21,7 +24,7 @@ import com.api.request.model.Problems;
 import com.github.javafaker.Faker;
 
 public class FakerDataGenerator {
-
+	private static final Logger LOGGER = LogManager.getLogger(FakerDataGenerator.class);
 	private static final String COUNTRY = "India";
 
 	private static final Faker FAKER = new Faker(new Locale("en-IND"));
@@ -36,7 +39,7 @@ public class FakerDataGenerator {
 	}
 
 	public static CreateJobPayload generateFakeCreateJobData() {
-
+		LOGGER.info("Creating fake payload for create job");
 		Customer customer = generateFakeCustomerData();
 		CustomerAddress customerAddress = generateFakeCustomerAddress();
 		CustomerProduct customerProduct = generateFakeCustomerProduct();

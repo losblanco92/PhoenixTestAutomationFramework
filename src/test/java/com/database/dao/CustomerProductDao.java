@@ -5,11 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DataBaseManager;
 import com.database.model.CustomerProductDBModel;
 
 public class CustomerProductDao {
-	
+	private static final Logger LOGGER = LogManager.getLogger(CustomerProductDao.class);
+
 	private CustomerProductDao () {
 		
 	}
@@ -21,10 +25,12 @@ public class CustomerProductDao {
 
 	public static CustomerProductDBModel getCustomerProductInfo(int tr_customer_product_id) {
 		CustomerProductDBModel customerProductDBModel = null;
-		
+		Connection conn;
 		try {
-		Connection conn = DataBaseManager.getConnection();
-		PreparedStatement preparedStatement = conn.prepareStatement(CUSTOMER_PRODUCT_QUERY);
+			LOGGER.info("GETTING THE CONNECTION FROM DATABASE MANAGER");
+			conn = DataBaseManager.getConnection();
+			LOGGER.info("EXECUTING SQL QUERY");		
+			PreparedStatement preparedStatement = conn.prepareStatement(CUSTOMER_PRODUCT_QUERY);
 
 		preparedStatement.setInt(1, tr_customer_product_id);
 
@@ -41,6 +47,8 @@ public class CustomerProductDao {
 		}
 		
 		catch (SQLException e) {
+			LOGGER.error("CANNOT CONVERT RESULTSET TO BEAN", e);
+
 			System.err.println(e.getMessage());
 		}
 

@@ -7,10 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DataBaseManager;
 import com.database.model.MapJobProblemModel;
 
 public class MapJobProblemDao {
+	private static final Logger LOGGER = LogManager.getLogger(MapJobProblemModel.class);
 
 	private MapJobProblemDao() {
 
@@ -23,11 +27,12 @@ public class MapJobProblemDao {
 	public static List<MapJobProblemModel> getProblemInfo(int tr_job_head_id) {
 		MapJobProblemModel mapJobProblemModel = null;
 		List<MapJobProblemModel> problemList = new ArrayList<MapJobProblemModel>();
-		
+		Connection conn;
 		try {
 
-			Connection conn = DataBaseManager.getConnection();
-
+			LOGGER.info("GETTING THE CONNECTION FROM DATABASE MANAGER");
+			conn = DataBaseManager.getConnection();
+			LOGGER.info("EXECUTING SQL QUERY");
 			PreparedStatement preparedStatement = conn.prepareStatement(JOB_PROBLEM_QUERY);
 
 			preparedStatement.setInt(1, tr_job_head_id);
@@ -40,7 +45,7 @@ public class MapJobProblemDao {
 
 						new MapJobProblemModel(resultSet.getInt("id"), resultSet.getInt("tr_job_head_id"),
 								resultSet.getInt("mst_problem_id"), resultSet.getString("remark"));
-				
+
 				problemList.add(mapJobProblemModel);
 
 			}
@@ -48,6 +53,7 @@ public class MapJobProblemDao {
 		}
 
 		catch (SQLException e) {
+			LOGGER.error("CANNOT CONVERT RESULTSET TO BEAN", e);
 
 			System.err.println(e.getMessage());
 		}

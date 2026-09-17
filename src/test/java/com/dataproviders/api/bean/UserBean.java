@@ -12,7 +12,17 @@ public class UserBean {
 	@CsvBindByName(column = "password")
 	private String password;
 	
-	
+    public UserBean () {
+    	
+    	
+    }
+    
+    public UserBean(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
 	public String getUsername() {
 		return username;
 	}
