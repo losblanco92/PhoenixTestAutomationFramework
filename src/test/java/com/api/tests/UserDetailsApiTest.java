@@ -7,9 +7,12 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import java.io.IOException;
 
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.services.UserService;
+
+@Listeners(com.listeners.APITestListener.class)
 
 public class UserDetailsApiTest {
 	

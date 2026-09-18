@@ -2,12 +2,16 @@ package com.api.tests;
 
 import static org.hamcrest.Matchers.*;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static com.api.constants.Role.*;
 import com.api.request.model.DetailsPayload;
 import com.api.services.DashBoardService;
 import static com.api.utils.SpecUtils.*;
+
+
+@Listeners(com.listeners.APITestListener.class)
 
 public class DetailsAPITest {
 	private DetailsPayload detailsPayload;

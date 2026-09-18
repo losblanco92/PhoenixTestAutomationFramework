@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.constants.Role;
@@ -31,6 +32,9 @@ import com.database.model.CustomerDBModel;
 import com.database.model.CustomerProductDBModel;
 import com.database.model.JobHeadModel;
 import com.database.model.MapJobProblemModel;
+
+
+@Listeners(com.listeners.APITestListener.class)
 
 public class CreateJobApiTestWithFakeData {
 	private CreateJobPayload createJobPayload;
