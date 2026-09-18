@@ -5,10 +5,14 @@ import static com.api.utils.SpecUtils.responseSpec_OK;
 import static org.hamcrest.Matchers.equalTo;
 
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.request.model.SearchJobPayload;
 import com.api.services.JobService;
+
+
+@Listeners(com.listeners.APITestListener.class)
 
 public class SearchJobAPITest {
 	

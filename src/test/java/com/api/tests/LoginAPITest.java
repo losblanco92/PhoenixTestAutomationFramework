@@ -14,6 +14,7 @@ import com.dataproviders.api.bean.UserBean;
 @Listeners(com.listeners.APITestListener.class)
 public class LoginAPITest {
 
+
  private	 UserBean userCredentails;
  private AuthService authService;
      @BeforeMethod(description = "Create the payload for login API")
