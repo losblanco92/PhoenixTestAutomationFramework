@@ -23,6 +23,8 @@ import com.api.request.model.Problems;
 
 import com.github.javafaker.Faker;
 
+import io.qameta.allure.Step;
+
 public class FakerDataGenerator {
 	private static final Logger LOGGER = LogManager.getLogger(FakerDataGenerator.class);
 	private static final String COUNTRY = "India";
@@ -38,6 +40,8 @@ public class FakerDataGenerator {
 
 	}
 
+	@Step("Generating multipe Fake Create Job Data")
+
 	public static CreateJobPayload generateFakeCreateJobData() {
 		LOGGER.info("Creating fake payload for create job");
 		Customer customer = generateFakeCustomerData();
@@ -50,6 +54,7 @@ public class FakerDataGenerator {
 
 		return createJobPayload;
 	}
+	@Step("Generating multipe Fake Create Job Data with the count")
 
 	public static Iterator<CreateJobPayload> generateFakeCreateJobData(int count) {
 
@@ -69,6 +74,7 @@ public class FakerDataGenerator {
 		}
 		return payloadList.iterator();
 	}
+	@Step("Generating Fake problem")
 
 	private static List<Problems> generateFakeListOfProblems() {
 		List<Problems> problemList = new ArrayList<Problems>();
@@ -88,6 +94,8 @@ public class FakerDataGenerator {
 		return problemList;
 	}
 
+	@Step("Generating Fake customer product")
+
 	private static CustomerProduct generateFakeCustomerProduct() {
 		String dop = DateTimeUtils.timeWithDaysAgo(10);
 		String imeiSerialNumber = FAKER.numerify("###############");
@@ -97,6 +105,8 @@ public class FakerDataGenerator {
 				popUrl, Products.NEXUS_2.getCode(), Models.NEXUS_2_BLUE.getCode());
 		return customerProduct;
 	}
+
+	@Step("Generating Fake customer address")
 
 	private static CustomerAddress generateFakeCustomerAddress() {
 		String flatNumber = FAKER.numerify("###");
@@ -112,6 +122,8 @@ public class FakerDataGenerator {
 				pinCode, COUNTRY, state);
 		return customerAddress;
 	}
+
+	@Step("Generating Fake customer data")
 
 	private static Customer generateFakeCustomerData() {
 		String fname = FAKER.name().firstName();

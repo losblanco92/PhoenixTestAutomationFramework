@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import io.qameta.allure.Step;
 
 public class EnvUtility {
 	private static final Logger LOGGER = LogManager.getLogger(EnvUtility.class);
@@ -19,6 +20,8 @@ public class EnvUtility {
 	private EnvUtility() {
 
 	}
+
+	@Step("Retreiving Secret from the .env File")
 
 	public static String getValue(String varName)
 

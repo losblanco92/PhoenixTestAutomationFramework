@@ -8,6 +8,7 @@ import org.testng.annotations.Listeners;
 
 import com.api.constants.Role;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 @Listeners(com.listeners.APITestListener.class)
@@ -16,7 +17,8 @@ public class MasterService {
 	
 	private final static String MASTER_API_ENDPOINT = "/master";
 	
-	
+	@Step("Making Master API request")
+
 	public Response master (Role role) {
 		
 		

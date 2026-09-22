@@ -12,9 +12,13 @@ import org.apache.logging.log4j.Logger;
 import com.api.constants.Role;
 import com.api.request.model.UserCredentials;
 
+import io.qameta.allure.Step;
+
 public class AuthTokenProvider {
 	private static final Logger LOGGER= LogManager.getLogger(AuthTokenProvider.class);
 	public static Map<Role, String> tokenCaching = new ConcurrentHashMap<Role, String>();
+
+	@Step("Getting Auth Token for the role")
 
 	public static String getToken(Role role) {
 
