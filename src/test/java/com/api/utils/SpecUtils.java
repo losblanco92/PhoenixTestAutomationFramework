@@ -8,6 +8,7 @@ import com.api.constants.Role;
 import com.api.filters.SensitiveDataFilter;
 
 import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
@@ -20,7 +21,7 @@ public class SpecUtils {
 	public static RequestSpecification requestSpec() {
 
 		RequestSpecification requestSpecification = new RequestSpecBuilder().setBaseUri(getProperty("BASE_URI"))
-				.setContentType(JSON).setAccept(JSON).addFilter(new SensitiveDataFilter()).build();
+				.setContentType(JSON).setAccept(JSON).addFilter(new SensitiveDataFilter()).addFilter(new AllureRestAssured()).build();
 
 		return requestSpecification;
 
@@ -31,7 +32,7 @@ public class SpecUtils {
 	public static RequestSpecification requestSpec(Object payload) {
 
 		RequestSpecification requestSpecification = new RequestSpecBuilder().setBaseUri(getProperty("BASE_URI"))
-				.setContentType(JSON).setAccept(JSON).setBody(payload).addFilter(new SensitiveDataFilter()).build();
+				.setContentType(JSON).setAccept(JSON).setBody(payload).addFilter(new SensitiveDataFilter()).addFilter(new AllureRestAssured()).build();
 
 		return requestSpecification;
 
@@ -43,7 +44,7 @@ public class SpecUtils {
 
 		RequestSpecification requestSpecification = new RequestSpecBuilder().setBaseUri(getProperty("BASE_URI"))
 				.setContentType(JSON).setAccept(JSON).addHeader("Authorization", AuthTokenProvider.getToken(role))
-				.addFilter(new SensitiveDataFilter()).build();
+				.addFilter(new SensitiveDataFilter()).addFilter(new AllureRestAssured()).build();
 
 		return requestSpecification;
 
@@ -55,7 +56,7 @@ public class SpecUtils {
 
 		RequestSpecification requestSpecification = new RequestSpecBuilder().setBaseUri(getProperty("BASE_URI"))
 				.setContentType(JSON).setAccept(JSON).addHeader("Authorization", AuthTokenProvider.getToken(role))
-				.addFilter(new SensitiveDataFilter()).setBody(payload).build();
+				.addFilter(new SensitiveDataFilter()).addFilter(new AllureRestAssured()).setBody(payload).build();
 
 		return requestSpecification;
 
