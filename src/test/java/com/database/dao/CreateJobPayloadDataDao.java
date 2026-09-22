@@ -12,12 +12,15 @@ import org.apache.logging.log4j.Logger;
 import com.database.DataBaseManager;
 import com.dataproviders.api.bean.CreateJobBean;
 
+import io.qameta.allure.Step;
+
 public class CreateJobPayloadDataDao {
 	private static final Logger LOGGER = LogManager.getLogger(CreateJobPayloadDataDao.class);
 	
 	private CreateJobPayloadDataDao () {
 		
 	}
+
 
 	private static final String SQL_QUERY = """
 			SELECT
@@ -63,6 +66,8 @@ public class CreateJobPayloadDataDao {
 
 			LIMIT 5;
 			""";
+
+	@Step("Retreiving Create Job Data from the Data Base")
 
 	public static List<CreateJobBean> getCreateJobPayloadData() {
 		Connection conn = null;

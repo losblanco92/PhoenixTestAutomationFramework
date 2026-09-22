@@ -12,6 +12,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.poiji.bind.Poiji;
 
+import io.qameta.allure.Step;
+
 public class ExcelReaderUtility {
 	
 	private static final Logger LOGGER = LogManager.getLogger(ExcelReaderUtility.class);
@@ -20,6 +22,8 @@ public class ExcelReaderUtility {
 		
 		
 	}
+
+	@Step("Loading Test Data from the excel file")
 
 	public static <T>Iterator<T> loadExcelTestData(String filePath, String sheetName, Class<T> bean)   {
 LOGGER.info("Reading the test data from .xlsx file from {}, and the sheet name is {}", filePath, sheetName);
