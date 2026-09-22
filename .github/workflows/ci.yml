@@ -46,7 +46,20 @@ jobs:
       - name: Execute Test Automation Framework
         run:  mvn clean test -DsuiteXmlFile="${{ inputs.suiteXmlFile || 'testng.xml' }}" -Denv="${{ inputs.env || 'QA' }}"
 
+      - name: Generating Allure Report
+        if: always()
+        run:  mvn allure:report
+
+      - name: Creating github page branch
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4.1.0 #GitHub Pages action
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: target/site/allure-maven-plugin
+
+     
       - name: Upload a Build Artifact
+        if: always()
         uses: actions/upload-artifact@v7.0.1
         with:
           name: Surefire Reports
